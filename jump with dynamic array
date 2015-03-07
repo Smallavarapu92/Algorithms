@@ -1,0 +1,70 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int arrayJmp(int arr[],int n)
+{
+	//If array is of size zero no jumps possible
+	if (n==0) 
+		return -1;
+	//else if array is of some size
+	//number of jumps will be value in the current array position
+	int jump = arr[0];
+	cout<<"\nJump is"<<jump;
+	int count = 1;
+	cout<<"\n1st arr[Jump] value is:"<<arr[jump];
+	cout<<"\n###############################";
+	while (jump >= 0 && jump < n)
+	{
+		if (arr[jump] == 0)
+		{
+			return -1;
+		}
+		count++;
+		cout<<"\ncount is:"<<count;
+		int pivot = jump;
+		cout<<"\nPivot is:"<<pivot;
+		cout<<"\nJump is:"<<arr[jump]<<"+"<<jump;
+		jump = arr[jump] + jump;
+		cout<<"\nnow Jump is"<<jump;
+		
+		arr[pivot] = 0;
+		cout<<"\n************************\n";
+	}
+	return count;
+}
+
+int main()
+{
+	int a;
+	int n=0,i=0,NoJ=0;
+	ifstream myfile;
+	myfile.open("file.txt");
+	while(!myfile.eof())
+	{
+		myfile>>a;
+		n++;
+	}
+	myfile.close();
+	myfile.open("file.txt");
+	int * A;
+	A=new int[n];
+	for(i=0;i<n ;i++)
+	{
+		myfile>>A[i];
+	}
+	cout<<"\n******************************\n";
+	cout<<"\nn value is: "<<n;
+	cout<<"\nArray is :\n";
+	for(int i=0;i<n;i++)
+	{
+		cout<<A[i]<<" ";
+	}
+	myfile.close();
+	cout<<"\n******************************\n";
+	NoJ=arrayJmp(A,n);
+	cout<<"\n******************************\n";
+	cout<<"\nNumber ofjumps: "<<NoJ;
+	delete [] A;
+	system("pause");
+}
